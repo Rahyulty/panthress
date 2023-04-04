@@ -7,5 +7,5 @@ export default abstract class Command {
   
   abstract execute(interaction: Interaction): Promise<void> 
   
-  autocomplete(interaction: Autocomplete) {}
+  autocomplete(_interaction: Autocomplete) {}
 }
