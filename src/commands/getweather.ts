@@ -1,16 +1,32 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Interaction } from "src/lib/types";
+import { Interaction } from "../lib/types";
+import { EmbedBuilder } from "@discordjs/builders"
+import { celsiustoFarenheit, getweatherAPI } from "../lib/util"
 import Command from "../classes/commands"
+const axios = require('axios')
 
-class getWeather extends Command {
+
+class weatherCommand extends Command {
   public builder = new SlashCommandBuilder()
-    .setName("weather")
-    .setDescription("check bot activity")
+    .setName('weather')
+    .setDescription('get the current weather in New York')
 
   async execute(interaction: Interaction) {
-    await interaction.reply("Pong nigga")
+    var apiResponse = await getweatherAPI()
+
+    var embed = new EmbedBuilder()
+      .setTitle(`${apiResponse.location.timezone_id}`)
+      .setTimestamp()
+      .setThumbnail(apiResponse.current.weather_icons[0])
+      .addFields(
+        { name: "Temperature", value: `${celsiustoFarenheit(Number(apiResponse.current.temperature))}°F` },
+        { name: "Feel", value: `${celsiustoFarenheit(Number(apiResponse.current.feelslike))}°F` },
+      )
+
+    interaction.reply({ embeds: [embed] })
+
   }
 }
 
 
-export default new getWeather
+export default new weatherCommand()

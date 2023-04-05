@@ -1,15 +1,16 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Interaction } from "src/lib/types";
+import { Interaction } from "../lib/types";
 import Command from "../classes/commands"
 
-class PingCommand extends Command {
+class Pingcommand extends Command {
   public builder = new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("check bot activity")
+    .setName('ping')
+    .setDescription('check if the bot is active')
 
-  async execute(interaction: Interaction) {
-    await interaction.reply("Pong nigga")
-  }
+    async execute(interaction: Interaction) {
+      await interaction.reply('pong!')
+    }
 }
 
-export default new PingCommand
+
+export default new Pingcommand()
