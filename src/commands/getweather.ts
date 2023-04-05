@@ -24,8 +24,7 @@ class WeatherCommand extends Command {
           .setTitle(`${apiResponse.location?.timezone_id}`)
           .setTimestamp()
           .setThumbnail(apiResponse.current?.weather_icons[0]!)
-          .setDescription(`Temperature is like around ${bold(`${Number(apiResponse.current?.temperature)}°F`)}
-        But feels like ${bold(`${apiResponse.current?.feelslike}°F`)} tho`)
+          .setDescription(`Temperature is like around ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)} tho`)
         //.addFields(
         //  { name: "Temperature", value: `${celsiustoFarenheit(Number(apiResponse.current.temperature))}°F` },
         //  { name: "Feel", value: `${celsiustoFarenheit(Number(apiResponse.current.feelslike))}°F` },
@@ -40,6 +39,5 @@ class WeatherCommand extends Command {
     }
   }
 }
-
 
 export default new WeatherCommand()
