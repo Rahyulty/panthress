@@ -59,7 +59,7 @@ class panthress {
 
 
   panthressListen() {
-    this.client.on(Events.InteractionCreate, async interaction => {
+    this.client.on(Events.InteractionCreate, async (interaction) => {
       if (this.bannedIds.includes(interaction.user.id)) {
         console.log(`banned id ${interaction.user.id} tried to use a command`)
         return
@@ -139,10 +139,10 @@ class panthress {
               },
             })
           } finally {
-            transaction.finish();
+            //transaction.finish();
           }
         }
-      } 
+      }
 
 
     }

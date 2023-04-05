@@ -1,32 +1,45 @@
-import { SlashCommandBuilder } from "discord.js";
+import { SlashCommandBuilder, bold } from "discord.js";
 import { Interaction } from "../lib/types";
 import { EmbedBuilder } from "@discordjs/builders"
-import { celsiustoFarenheit, getweatherAPI } from "../lib/util"
+import { getWeatherAPI } from "../lib/util"
 import Command from "../classes/commands"
-const axios = require('axios')
+import { shrug } from "../lib/constants";
 
 
-class weatherCommand extends Command {
+class WeatherCommand extends Command {
   public builder = new SlashCommandBuilder()
     .setName('weather')
-    .setDescription('get the current weather in New York')
+    .setDescription('get the current weather in da streets')
 
   async execute(interaction: Interaction) {
-    var apiResponse = await getweatherAPI()
+    await interaction.deferReply()
+    try {
+      const apiResponse = await getWeatherAPI()!
 
-    var embed = new EmbedBuilder()
-      .setTitle(`${apiResponse.location.timezone_id}`)
-      .setTimestamp()
-      .setThumbnail(apiResponse.current.weather_icons[0])
-      .addFields(
-        { name: "Temperature", value: `${celsiustoFarenheit(Number(apiResponse.current.temperature))}°F` },
-        { name: "Feel", value: `${celsiustoFarenheit(Number(apiResponse.current.feelslike))}°F` },
-      )
+      if (apiResponse.success === false) {
+        await interaction.editReply(`oops weather fetch failed ${shrug}
+        Code: ${apiResponse.error?.code} || Reason: ${bold(`${apiResponse.error?.info}`)}`)
+      } else {
+        const embed = new EmbedBuilder()
+          .setTitle(`${apiResponse.location?.timezone_id}`)
+          .setTimestamp()
+          .setThumbnail(apiResponse.current?.weather_icons[0]!)
+          .setDescription(`Temperature is like around ${bold(`${Number(apiResponse.current?.temperature)}°F`)}
+        But feels like ${bold(`${apiResponse.current?.feelslike}°F`)} tho`)
+        //.addFields(
+        //  { name: "Temperature", value: `${celsiustoFarenheit(Number(apiResponse.current.temperature))}°F` },
+        //  { name: "Feel", value: `${celsiustoFarenheit(Number(apiResponse.current.feelslike))}°F` },
+        //)
 
-    interaction.reply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed] })
+      }
 
+    } catch (e) {
+      console.log(e)
+      await interaction.editReply(`${shrug} weather command didnt work. uh try again?`)
+    }
   }
 }
 
 
-export default new weatherCommand()
+export default new WeatherCommand()

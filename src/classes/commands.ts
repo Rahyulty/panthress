@@ -3,9 +3,9 @@ import { Autocomplete, Interaction } from "../lib/types";
 
 export default abstract class Command {
   public builder: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup"> | SlashCommandSubcommandsOnlyBuilder
-  constructor() {}
-  
-  abstract execute(interaction: Interaction): Promise<void> 
-  
-  autocomplete(_interaction: Autocomplete) {}
+  constructor() { }
+
+  abstract execute(interaction: Interaction): Promise<void>
+
+  autocomplete(_interaction: Autocomplete) { }
 }

@@ -1,27 +1,13 @@
-require('dotenv').config()
-const axios = require('axios')
+import axios from 'axios'
+import { JSONResponse } from './types';
 
-export function celsiustoFarenheit(celsius : number) {
-  var cTemp = celsius;
-  var cToFahr = cTemp * 9 / 5 + 32;
-  return cToFahr
-}
-
-// @ts-ignore
-export const getweatherAPI = async (): any => {
+export async function getWeatherAPI() {
   const params = {
     access_key: process.env.WEATHER,
-    query: 'New York'
+    query: 'New York',
+    units: 'f'
   }
 
-  axios.get('http://api.weatherstack.com/current', { params })
-      .then((response: { data: any; }) => {
-        const apiResponse = response.data;
-        console.log(apiResponse)
-        return apiResponse 
-      }).catch((error: any) => {
-        console.log(error);
-
-      });
+  return (await axios.get('http://api.weatherstack.com/current', { params })).data as JSONResponse
 
 }

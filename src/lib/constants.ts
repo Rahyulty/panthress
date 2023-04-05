@@ -1,0 +1,1 @@
+export const shrug = `¯\_(ツ)_/¯`
