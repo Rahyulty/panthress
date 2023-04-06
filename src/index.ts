@@ -193,7 +193,7 @@ try {
 
 
 
-      // await channel?.send({ embeds: [embed]})
+      await channel?.send({ embeds: [embed]})
 
       
     }
