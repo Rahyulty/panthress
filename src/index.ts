@@ -164,8 +164,8 @@ try {
   console.error("botError", e);
 }
 
-// cron.schedule('0 6,18,22 * * *', async () => {
-  cron.schedule('*/5 * * * * *', async () => {
+cron.schedule('0 6,18,22 * * *', async () => {
+  // cron.schedule('*/5 * * * * *', async () => {
   const deta = getDetaBase()
   const db = await (await deta).get('servers') as any
   let data = JSON.parse(db.data)
