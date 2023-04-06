@@ -1,8 +1,11 @@
 require('dotenv').config()
-import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, TextChannel } from "discord.js";
+import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js";
+import { Deta } from "deta";
+import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage, getNewsAPI } from "./lib/util";
 import Command from "./classes/commands";
 import fs from "fs"
 import * as Sentry from '@sentry/node'
+import cron from 'node-cron';
 import path from "path";
 
 class panthress {
@@ -160,6 +163,45 @@ try {
 } catch (e) {
   console.error("botError", e);
 }
+
+// cron.schedule('0 6,18,22 * * *', async () => {
+  cron.schedule('*/5 * * * * *', async () => {
+  const deta = getDetaBase()
+  const db = await (await deta).get('servers') as any
+  let data = JSON.parse(db.data)
+
+  for (const guildId in data){
+    const channelId = data[guildId].homeChannel
+    if (channelId) {
+      const apiResponse = await getWeatherAPI()!
+      // const newsResponse = await getNewsAPI()!
+      const guildManager: GuildManager = bot.client.guilds
+      const guild : Guild | undefined = guildManager.cache.get(guildId)
+      const channel = guild?.channels.cache.find(
+        channel => channel.id === channelId && channel instanceof TextChannel
+      ) as TextChannel | undefined;
+
+      // console.log(newsResponse)
+      const embed = new EmbedBuilder()
+        .setTitle(`${getGreeting()}, ${guild?.name}. \n${getTimeOfDayMessage()}`)
+        .setTimestamp()
+        .setThumbnail(apiResponse.current?.weather_icons[0]!)
+        .addFields(
+          {name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}`},
+          {name : "Area", value: `Currently we are having ${bold(`${apiResponse.current?.weather_descriptions}`)}`}
+        )
+
+
+
+      // await channel?.send({ embeds: [embed]})
+
+      
+    }
+  }
+
+})
+
+
 
 
 

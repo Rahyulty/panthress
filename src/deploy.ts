@@ -6,6 +6,7 @@ import Command from "./classes/commands";
 
 let commands = [];
 // Grab all the command files from the commands directory you created earlier
+// testing
 const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
@@ -35,8 +36,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN as string);
   } catch (error) {
     // And of course, make sure you catch and log any errors!
     console.error(error);
-    console.log("NIGGA NIGGA NIGGA")
-  }
+    }
 })();
 
 

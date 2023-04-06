@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { JSONResponse } from './types';
-import { Deta, Base } from "deta";
+import { Deta } from "deta";
 
 export async function getWeatherAPI() {
   const params = {
@@ -13,8 +13,72 @@ export async function getWeatherAPI() {
 
 }
 
+export async function getNewsAPI() {
+  // const apikey = 'e2601b9b29158a4e8c566c3f0b55fbbc';
+  const category = 'world';
+  const url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data.articles;
+}
+
+
+
 export async function getDetaBase() {
   const deta = Deta(process.env.DATA)
   const dataBase = deta.Base('pnth-data')
   return dataBase
+}
+
+
+export function getGreeting(): string {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 6 && hour < 12) {
+    return "Good morning";
+  } else if (hour >= 12 && hour < 18) {
+    return "Good afternoon";
+  } else {
+    return "Good evening";
+  }
+}
+
+
+export function getTimeOfDayMessage(): string {
+  const now = new Date();
+  const hour = now.getHours();
+  
+  // Define the messages for each time of day
+  const messages = {
+    morning: [
+      "Good morning, time to start a new day!",
+      "Rise and shine, it's morning time!",
+      "Time to wake up and conquer the day!"
+    ],
+    afternoon: [
+      "Good afternoon, how's your day going?",
+      "Hope you're having a great afternoon so far!",
+      "The day's not over yet, keep pushing!"
+    ],
+    evening: [
+      "Good evening, time to wind down and relax!",
+      "The day's almost over, finish strong!",
+      "What did you accomplish today? Reflect on it and be proud."
+    ]
+  }
+
+  // Determine which time of day it is
+  let timeOfDay: keyof typeof messages = "morning";
+  if (hour >= 12 && hour < 18) {
+    timeOfDay = "afternoon";
+  } else if (hour >= 18) {
+    timeOfDay = "evening";
+  }
+
+  // Get a random message from the appropriate time of day
+  const messageIndex = Math.floor(Math.random() * messages[timeOfDay].length);
+  return messages[timeOfDay][messageIndex];
 }
