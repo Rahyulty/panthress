@@ -1,7 +1,7 @@
 require('dotenv').config()
 import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js";
 import { Deta } from "deta";
-import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage, getNewsAPI } from "./lib/util";
+import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage } from "./lib/util";
 import Command from "./classes/commands";
 import fs from "fs"
 import * as Sentry from '@sentry/node'

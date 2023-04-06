@@ -13,16 +13,16 @@ export async function getWeatherAPI() {
 
 }
 
-export async function getNewsAPI() {
-  // const apikey = 'e2601b9b29158a4e8c566c3f0b55fbbc';
-  const category = 'world';
-  const url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
+// export async function getNewsAPI() {
+//   const apikey = 'e2601b9b29158a4e8c566c3f0b55fbbc';
+//   const category = 'world';
+//   const url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
 
-  const response = await fetch(url);
-  const data = await response.json();
+//   const response = await fetch(url);
+//   const data = await response.json();
 
-  return data.articles;
-}
+//   return data.articles;
+// }
 
 
 
