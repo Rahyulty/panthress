@@ -25,8 +25,8 @@ class WeatherCommand extends Command {
           .setTimestamp()
           .setThumbnail(apiResponse.current?.weather_icons[0]!)
           .addFields(
-            {name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}`},
-            {name : "Area", value: `Currently we are having ${bold(`${apiResponse.current?.weather_descriptions}`)}`}
+            { name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, but feels like ${bold(`${apiResponse.current?.feelslike}°F`)}` },
+            { name: "Area", value: `Currently we are having ${bold(`${apiResponse.current?.weather_descriptions}`)}` }
           )
         //.addFields(
         //  { name: "Temperature", value: `${celsiustoFarenheit(Number(apiResponse.current.temperature))}°F` },
