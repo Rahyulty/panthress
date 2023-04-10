@@ -5,7 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/cron": "^2.0.1",
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.15.11",
     "@types/node-cron": "^3.0.7",
     "nodemon": "^2.0.22",
     "rimraf": "^3.0.2",

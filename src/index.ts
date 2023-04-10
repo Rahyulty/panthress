@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js";
+import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js"
 import { Deta } from "deta";
 import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage } from "./lib/util";
 import Command from "./classes/commands";
@@ -183,12 +183,13 @@ cron.schedule('0 6,18,22 * * *', async () => {
 
       // console.log(newsResponse)
       const embed = new EmbedBuilder()
+        .setColor(0x0099FF)
         .setTitle(`${getGreeting()}, ${guild?.name}. \n${getTimeOfDayMessage()}`)
         .setTimestamp()
         .setThumbnail(apiResponse.current?.weather_icons[0]!)
         .addFields(
           {name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}`},
-          {name : "Area", value: `Currently we are having ${bold(`${apiResponse.current?.weather_descriptions}`)}`}
+          {name : "Area", value: `Currently the area is expriencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weater`}
         )
 
 

@@ -34,15 +34,14 @@ export async function getDetaBase() {
 
 
 export function getGreeting(): string {
-  const now = new Date();
-  const hour = now.getHours();
+  const currentHour = new Date().getHours();
 
-  if (hour >= 6 && hour < 12) {
-    return "Good morning";
-  } else if (hour >= 12 && hour < 18) {
-    return "Good afternoon";
+  if (currentHour >= 5 && currentHour < 12) {
+    return "Good Morning!";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return "Good Afternoon";
   } else {
-    return "Good evening";
+    return "Good Night";
   }
 }
 
