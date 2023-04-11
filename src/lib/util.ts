@@ -34,14 +34,15 @@ export async function getDetaBase() {
 
 
 export function getGreeting(): string {
-  const currentHour = new Date().getHours();
+  const date = new Date()
+  const hour = date.getHours()
 
-  if (currentHour >= 5 && currentHour < 12) {
-    return "Good Morning!";
-  } else if (currentHour >= 12 && currentHour < 18) {
-    return "Good Afternoon";
+  if (hour < 12){
+    return 'Good Morning!'
+  } else if (hour < 18){
+    return 'Good Afternoon'
   } else {
-    return "Good Night";
+    return 'Good Night'
   }
 }
 
@@ -66,15 +67,21 @@ export function getTimeOfDayMessage(): string {
       "Good evening, time to wind down and relax!",
       "The day's almost over, finish strong!",
       "What did you accomplish today? Reflect on it and be proud."
+    ],
+    null : [
+      "unable to get phrase"
     ]
+
   }
 
   // Determine which time of day it is
-  let timeOfDay: keyof typeof messages = "morning";
-  if (hour >= 12 && hour < 18) {
-    timeOfDay = "afternoon";
-  } else if (hour >= 18) {
-    timeOfDay = "evening";
+  let timeOfDay: keyof typeof messages = "null";
+  if (hour < 12){
+    timeOfDay = 'morning'
+  } else if (hour < 18){
+    timeOfDay = 'afternoon'
+  } else {
+    timeOfDay = 'evening'
   }
 
   // Get a random message from the appropriate time of day

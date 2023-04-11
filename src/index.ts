@@ -189,7 +189,7 @@ cron.schedule('0 6,18,22 * * *', async () => {
         .setThumbnail(apiResponse.current?.weather_icons[0]!)
         .addFields(
           {name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}`},
-          {name : "Area", value: `Currently the area is expriencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weater`}
+          {name : "Area", value: `Currently the area is experiencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weather`}
         )
 
 
