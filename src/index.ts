@@ -1,6 +1,5 @@
 require('dotenv').config()
 import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js"
-import { Deta } from "deta";
 import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage } from "./lib/util";
 import Command from "./classes/commands";
 import fs from "fs"
@@ -170,13 +169,13 @@ cron.schedule('0 6,18,22 * * *', async () => {
   const db = await (await deta).get('servers') as any
   let data = JSON.parse(db.data)
 
-  for (const guildId in data){
+  for (const guildId in data) {
     const channelId = data[guildId].homeChannel
     if (channelId) {
       const apiResponse = await getWeatherAPI()!
       // const newsResponse = await getNewsAPI()!
       const guildManager: GuildManager = bot.client.guilds
-      const guild : Guild | undefined = guildManager.cache.get(guildId)
+      const guild: Guild | undefined = guildManager.cache.get(guildId)
       const channel = guild?.channels.cache.find(
         channel => channel.id === channelId && channel instanceof TextChannel
       ) as TextChannel | undefined;
@@ -188,18 +187,20 @@ cron.schedule('0 6,18,22 * * *', async () => {
         .setTimestamp()
         .setThumbnail(apiResponse.current?.weather_icons[0]!)
         .addFields(
-          {name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}`},
-          {name : "Area", value: `Currently the area is experiencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weather`}
+          { name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}` },
+          { name: "Area", value: `Currently the area is experiencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weather` }
         )
 
 
 
-      await channel?.send({ embeds: [embed]})
+      await channel?.send({ embeds: [embed] })
 
-      
+
     }
   }
 
+}, {
+  timezone: 'America/New_York'
 })
 
 
