@@ -56,7 +56,7 @@ export function getGreeting() {
 export function getTimeOfDayMessage(): string {
   const now = new Date();
   const hour = now.getHours();
-  
+
   // Define the messages for each time of day
   const messages = {
     morning: [
@@ -74,7 +74,7 @@ export function getTimeOfDayMessage(): string {
       "The day's almost over, finish strong!",
       "What did you accomplish today? Reflect on it and be proud."
     ],
-    null : [
+    null: [
       "unable to get phrase"
     ]
 
@@ -82,9 +82,9 @@ export function getTimeOfDayMessage(): string {
 
   // Determine which time of day it is
   let timeOfDay: keyof typeof messages = "null";
-  if (hour < 12){
+  if (hour < 12) {
     timeOfDay = 'morning'
-  } else if (hour < 18){
+  } else if (hour < 18) {
     timeOfDay = 'afternoon'
   } else {
     timeOfDay = 'evening'
