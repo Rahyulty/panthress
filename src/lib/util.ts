@@ -36,13 +36,19 @@ export async function getDetaBase() {
 export function getGreeting() {
   const now = new Date();
   const hour = now.getHours();
-  
+  var answer = "Greetings!"
+
   if (hour >= 6 && hour < 12) {
-    return "Good morning"
+    answer =  "Good morning"
+    return answer
   } else if (hour >= 12 && hour < 18) {
-    return "Good afternoon"
+    answer =  "Good afternoon"
+    return answer
   } else if (hour >= 18 || hour < 6) {
-    return "Good night"
+    answer = "Good night"
+    return answer
+  } else {
+    return answer
   }
 }
 
