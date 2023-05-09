@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { JSONResponse } from './types';
 import { Deta } from "deta";
+import { time } from 'console';
 
 export async function getWeatherAPI() {
   const params = {
@@ -13,16 +14,16 @@ export async function getWeatherAPI() {
 
 }
 
-// export async function getNewsAPI() {
-//   const apikey = 'e2601b9b29158a4e8c566c3f0b55fbbc';
-//   const category = 'world';
-//   const url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
+export async function getNewsAPI() {
+  const apikey = process.env.NEWS;
+  const category = 'world';
+  const url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
 
-//   const response = await fetch(url);
-//   const data = await response.json();
+  const response = await fetch(url);
+  const data = await response.json();
 
-//   return data.articles;
-// }
+  return data.articles;
+}
 
 
 
@@ -35,7 +36,7 @@ export async function getDetaBase() {
 
 export function getGreeting() {
   const now = new Date();
-  const hour = now.getHours();
+  const hour = now.getUTCHours();
   var answer = "Greetings!"
 
   if (hour >= 6 && hour < 12) {
@@ -55,40 +56,47 @@ export function getGreeting() {
 
 export function getTimeOfDayMessage(): string {
   const now = new Date();
-  const hour = now.getHours();
+  const hour = now.getUTCHours();
 
   // Define the messages for each time of day
   const messages = {
     morning: [
       "Good morning, time to start a new day!",
       "Rise and shine, it's morning time!",
-      "Time to wake up and conquer the day!"
+      "Time to wake up and conquer the day!",
+      "A new day, a new opportunity. Let's make the most of it!",
+      "Wake up with determination, go to bed with satisfaction!",
     ],
     afternoon: [
       "Good afternoon, how's your day going?",
       "Hope you're having a great afternoon so far!",
-      "The day's not over yet, keep pushing!"
+      "The day's not over yet, keep pushing!",
+      "Halfway through the day, keep up the good work!",
+      "The afternoon knows what the morning never suspected. Enjoy it!",
+      "A productive afternoon will always lead to a successful day."
     ],
     evening: [
-      "Good evening, time to wind down and relax!",
+      "Time to wind down and relax!",
       "The day's almost over, finish strong!",
-      "What did you accomplish today? Reflect on it and be proud."
+      "What did you accomplish today? Reflect on it and be proud.",
+      "Evening is a time of real experimentation. You never want to look the same way.",
+      "An evening walk is a great way to reflect on the day and plan for tomorrow!",
+      "The day is done, let's rest and recharge for tomorrow."
     ],
     null: [
       "unable to get phrase"
     ]
-
   }
 
   // Determine which time of day it is
   let timeOfDay: keyof typeof messages = "null";
-  if (hour < 12) {
-    timeOfDay = 'morning'
-  } else if (hour < 18) {
-    timeOfDay = 'afternoon'
-  } else {
-    timeOfDay = 'evening'
-  }
+  if (hour >= 6 && hour < 12) {
+    timeOfDay = "morning"
+  } else if (hour >= 12 && hour < 18) {
+    timeOfDay =  "afternoon"
+  } else if (hour >= 18 || hour < 6) {
+    timeOfDay = "evening"
+  } 
 
   // Get a random message from the appropriate time of day
   const messageIndex = Math.floor(Math.random() * messages[timeOfDay].length);
