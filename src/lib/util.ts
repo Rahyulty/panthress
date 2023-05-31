@@ -102,3 +102,34 @@ export function getTimeOfDayMessage(): string {
   const messageIndex = Math.floor(Math.random() * messages[timeOfDay].length);
   return messages[timeOfDay][messageIndex];
 }
+
+
+export function daysUntilLastDayOfSchool(school: string): string {
+  let lastDay: Date;
+
+  switch (school) {
+    case "AF":
+      lastDay = new Date("June 13, 2023");
+      break;
+    case "MD":
+      lastDay = new Date("June 27, 2023");
+      break;
+    case "BTHS":
+      lastDay = new Date("June 27, 2023");
+      break;
+    default:
+      return "Invalid school";
+  }
+
+  const currentDate = new Date();
+
+  if (currentDate > lastDay) {
+    return "School is already over";
+  } else if (currentDate.toDateString() === lastDay.toDateString()) {
+    return "School is over";
+  } else {
+    const timeDifference = lastDay.getTime() - currentDate.getTime();
+    const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return `There are ${daysRemaining} days until the last day of school.`;
+  }
+}
