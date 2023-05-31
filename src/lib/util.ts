@@ -112,8 +112,6 @@ export function daysUntilLastDayOfSchool(school: string): string {
       lastDay = new Date("June 13, 2023");
       break;
     case "MD":
-      lastDay = new Date("June 27, 2023");
-      break;
     case "BTHS":
       lastDay = new Date("June 27, 2023");
       break;
