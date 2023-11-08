@@ -20,7 +20,7 @@ class panthress {
       presence: {
         activities: [{
           type: ActivityType.Listening,
-          name: "to V to the H"
+          name: "to N to the B"
         }]
       }
     })
