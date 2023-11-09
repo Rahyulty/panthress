@@ -61,32 +61,31 @@ export function getTimeOfDayMessage(): string {
   // Define the messages for each time of day
   const messages = {
     morning: [
-      "Good morning, time to start a new day!",
-      "Rise and shine, it's morning time!",
-      "Time to wake up and conquer the day!",
-      "A new day, a new opportunity. Let's make the most of it!",
-      "Wake up with determination, go to bed with satisfaction!",
+      "Good morning! Let's create a fantastic day ahead.",
+      "Rise and shine! Embrace the possibilities of a new morning.",
+      "Seize the day and make it extraordinary!",
+      "Each morning brings new potential. Make today amazing!",
+      "Wake up with a smile, ready to make a difference."
     ],
     afternoon: [
-      "Good afternoon, how's your day going?",
-      "Hope you're having a great afternoon so far!",
-      "The day's not over yet, keep pushing!",
-      "Halfway through the day, keep up the good work!",
-      "The afternoon knows what the morning never suspected. Enjoy it!",
-      "A productive afternoon will always lead to a successful day."
+      "Good afternoon! How's your day shaping up?",
+      "Hope your day is filled with productivity and joy!",
+      "The afternoon sun invites us to keep achieving.",
+      "Take a moment to recharge for the rest of the day.",
+      "Embrace the tasks ahead; success awaits in the afternoon."
     ],
     evening: [
-      "Time to wind down and relax!",
-      "The day's almost over, finish strong!",
-      "What did you accomplish today? Reflect on it and be proud.",
-      "Evening is a time of real experimentation. You never want to look the same way.",
-      "An evening walk is a great way to reflect on the day and plan for tomorrow!",
-      "The day is done, let's rest and recharge for tomorrow."
+      "Time to unwind and relax. You deserve it!",
+      "Reflect on your achievements today and be proud.",
+      "An evening of peace sets the tone for a tranquil night.",
+      "Evening offers a canvas to paint a better tomorrow.",
+      "As the day winds down, cherish moments of tranquility."
     ],
     null: [
-      "unable to get phrase"
+      "Unable to retrieve a phrase for this moment."
     ]
   }
+  
 
   // Determine which time of day it is
   let timeOfDay: keyof typeof messages = "null";
@@ -104,16 +103,16 @@ export function getTimeOfDayMessage(): string {
 }
 
 
-export function daysUntilLastDayOfSchool(school: string): string {
+export function daysuntilBreak(school: string): string {
   let lastDay: Date;
 
   switch (school) {
     case "AF":
-      lastDay = new Date("June 13, 2023");
+      lastDay = new Date("November 20, 2023");
       break;
     case "MD":
     case "BTHS":
-      lastDay = new Date("June 27, 2023");
+      lastDay = new Date("November 23, 2023");
       break;
     default:
       return "Invalid school";
@@ -128,6 +127,6 @@ export function daysUntilLastDayOfSchool(school: string): string {
   } else {
     const timeDifference = lastDay.getTime() - currentDate.getTime();
     const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-    return `There are ${daysRemaining} days until the last day of school.`;
+    return `There are ${daysRemaining} days until the next break.`;
   }
 }

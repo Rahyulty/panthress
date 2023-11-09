@@ -1,6 +1,6 @@
 require('dotenv').config()
 import { Client, GatewayIntentBits, Partials, ActivityType, Events, Collection, GuildManager, Guild, TextChannel, EmbedBuilder, bold } from "discord.js"
-import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage, daysUntilLastDayOfSchool} from "./lib/util";
+import { getDetaBase, getGreeting, getWeatherAPI, getTimeOfDayMessage, daysuntilBreak} from "./lib/util";
 import Command from "./classes/commands";
 import fs from "fs"
 import * as Sentry from '@sentry/node'
@@ -189,9 +189,8 @@ cron.schedule('0 6,12,21 * * *', async () => {
         .addFields(
           { name: "Temperature", value: `Temperature is currently ${bold(`${Number(apiResponse.current?.temperature)}°F`)}, But feels like ${bold(`${apiResponse.current?.feelslike}°F`)}` },
           { name: "Area", value: `Currently the area is experiencing some ${bold(`${apiResponse.current?.weather_descriptions}`)} weather` },
-          { name : "Countdown till AF's Last Day of School", value : daysUntilLastDayOfSchool("AF")},
-          {name : "Countdown till BTHS last Day of School", value: daysUntilLastDayOfSchool("BTHS")},
-          {name : "Countdown till Midwoods last Day of School", value : daysUntilLastDayOfSchool("MD")}
+          { name : "Countdown till AF's Next Break", value : daysuntilBreak("AF")},
+          {name : "Countdown till Public Schools Next Break", value: daysuntilBreak("BTHS")},
         )
 
 
